@@ -7,16 +7,16 @@ function Header({ simple, hideAuth }) {
     <header>
       <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
         <div className="container">
-          <Link href="/">
-            <a className="navbar-brand">
-              {/* <FontAwesomeIcon
-                icon={["fas", "shopping-basket"]}
-                className="d-inline-block"
-              /> */}
-              <span className="ms-2 mb-0 h4 text-primary fw-bold">
-                Mocha Mart
-              </span>
-            </a>
+          <Link href="/" className="navbar-brand">
+
+            {/* <FontAwesomeIcon
+              icon={["fas", "shopping-basket"]}
+              className="d-inline-block"
+            /> */}
+            <span className="ms-2 mb-0 h4 text-primary fw-bold">
+              Mocha Mart
+            </span>
+
           </Link>
           <div className="collapse navbar-collapse">
             <form className="d-flex">
@@ -37,26 +37,26 @@ function Header({ simple, hideAuth }) {
           <div className="d-flex">
             {!hideAuth && (
               <>
-                <Link href="/auth/login">
-                  <a className="btn btn-outline-primary d-none d-md-block">
+                <Link href="/auth/login" className="btn btn-outline-primary d-none d-md-block">
+                  
                     Login
-                  </a>
+                  
                 </Link>
-                <Link href="/auth/sign-up">
-                  <a className="btn btn-primary d-none d-md-block ms-2">
+                <Link href="/auth/sign-up" className="btn btn-primary d-none d-md-block ms-2">
+                  
                     Sign up
-                  </a>
+                  
                 </Link>
               </>
             )}
-            <Link href="/shopping-cart">
-              <a className="btn btn-light border position-relative ms-2 fw-normal">
-                <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
-                &nbsp;Cart
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-                  3
-                </span>
-              </a>
+            <Link
+              href="/shopping-cart"
+              className="btn btn-light border position-relative ms-2 fw-normal">
+
+              <FontAwesomeIcon icon={["fas", "shopping-cart"]} />Cart<span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
+                3
+              </span>
+
             </Link>
           </div>
         </div>
@@ -78,33 +78,33 @@ function Header({ simple, hideAuth }) {
             <div className="collapse navbar-collapse" id="navbarNavDropdown">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">All Categories</a>
+                  <Link href="/explore" className="nav-link">
+                    All Categories
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Electronics</a>
+                  <Link href="/explore" className="nav-link">
+                    Electronics
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Clothing</a>
+                  <Link href="/explore" className="nav-link">
+                    Clothing
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Furnitures</a>
+                  <Link href="/explore" className="nav-link">
+                    Furnitures
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Medicines</a>
+                  <Link href="/explore" className="nav-link">
+                    Medicines
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link href="/explore">
-                    <a className="nav-link">Cosmetics</a>
+                  <Link href="/explore" className="nav-link">
+                    Cosmetics
                   </Link>
                 </li>
               </ul>

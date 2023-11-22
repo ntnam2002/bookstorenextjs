@@ -17,8 +17,8 @@ function ReviewCartItem({ id }) {
       </div>
       <div className="flex-grow-1 ms-3 h-100">
         <div className="vstack">
-          <Link href="/product/1">
-            <a className="text-dark text-decoration-none">Product name here</a>
+          <Link href="/product/1" className="text-dark text-decoration-none">
+            Product name here
           </Link>
           <small className="text-muted mb-2" style={{ fontSize: 12 }}>
             <span>Medium</span>

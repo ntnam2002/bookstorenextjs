@@ -20,7 +20,7 @@ function CheckoutSuccess() {
                 We&apos;ve received your order. You can track order status in
                 your&nbsp;
                 <Link href="/account/current-orders">
-                  <a>account setting</a>
+                  account setting
                 </Link>
                 .
               </p>
