@@ -1,10 +1,27 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Carousel } from "react-responsive-carousel";
 import ProductSimpleCard from "../components/product/product-simple-card";
+import { useEffect, useState } from "react";
+import BookApi from "./api/bookApi";
 
 export default function Home() {
-    const list = [1, 2, 3, 4, 5, 6, 7, 8];
+    const [book, setBook] = useState([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const bookApi = BookApi;
+                const result = await bookApi.getAll();
 
+                // Lấy danh sách sản phẩm
+                console.log("Danh sách sản phẩm:", result);
+                setBook(result.data);
+            } catch (error) {
+                console.error("Lỗi khi lấy dữ liệu:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
     return (
         <div>
             <div className="container py-3">
@@ -51,21 +68,21 @@ export default function Home() {
                         >
                             <div className="ratio ratio-21x9">
                                 <img
-                                    src="/images/online-shopping.jpg"
+                                    src="/images/pic1.jpg"
                                     alt="Cover image"
                                     className="rounded"
                                 />
                             </div>
                             <div className="ratio ratio-21x9">
                                 <img
-                                    src="/images/online-shopping.jpg"
+                                    src="/images/pic2.jpg"
                                     alt="Cover image"
                                     className="rounded"
                                 />
                             </div>
                             <div className="ratio ratio-21x9">
                                 <img
-                                    src="/images/online-shopping.jpg"
+                                    src="/images/pic3.jpg"
                                     alt="Cover image"
                                     className="rounded"
                                 />
@@ -89,9 +106,9 @@ export default function Home() {
                                 </div>
                                 <h5 className="mb-1 fw-bold">Giá cả hợp lí</h5>
                                 <figcaption className="figure-caption text-dark">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
+                                    Chúng tôi cam kết cung cấp sản phẩm với giá
+                                    cả hợp lí, đảm bảo sự hài lòng của khách
+                                    hàng.
                                 </figcaption>
                             </figure>
                         </div>
@@ -113,9 +130,8 @@ export default function Home() {
                                     Hỗ trợ khách hàng 24/7
                                 </h5>
                                 <figcaption className="figure-caption text-dark">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
+                                    Đội ngũ hỗ trợ của chúng tôi sẵn sàng phục
+                                    vụ bạn mọi lúc 24/7.
                                 </figcaption>
                             </figure>
                         </div>
@@ -137,9 +153,8 @@ export default function Home() {
                                     Vận chuyển nhanh
                                 </h5>
                                 <figcaption className="figure-caption text-dark">
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
+                                    Quá trình đặt hàng và vận chuyển hàng tối ưu
+                                    nhất cho bạn.
                                 </figcaption>
                             </figure>
                         </div>
@@ -147,37 +162,15 @@ export default function Home() {
                 </div>
                 <h4 className="mb-3 fw-semibold">Sản phẩm mới</h4>
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
-                    {list.map((e, i) => {
-                        return (
-                            <div className="col" key={i}>
-                                <ProductSimpleCard
-                                    id={i}
-                                    title={`Product ${i}`}
-                                />
-                            </div>
-                        );
-                    })}
+                    {book && (
+                        <>
+                            {book.map((book, index) => (
+                                <ProductSimpleCard key={index} product={book} />
+                            ))}
+                        </>
+                    )}
                 </div>
             </div>
-            {/* <div className="d-flex flex-column align-items-center bg-primary py-5">
-        <span className="mb-4 text-light text-opacity-75">
-          Subscribe for promotions and wonderful events
-        </span>
-        <form className="d-flex">
-          <div className="me-2">
-            <input
-              type="email"
-              className="form-control"
-              placeholder="Your email"
-              size="24"
-            />
-          </div>
-          <button className="btn btn-warning">
-            <FontAwesomeIcon icon={["fas", "envelope"]} className="me-2" />
-            Subscribe
-          </button>
-        </form>
-      </div> */}
         </div>
     );
 }

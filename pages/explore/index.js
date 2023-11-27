@@ -15,12 +15,6 @@ function ExploreProducts() {
                                 <li className="breadcrumb-item">
                                     <a href="#">Sách</a>
                                 </li>
-                                <li
-                                    className="breadcrumb-item active"
-                                    aria-current="page"
-                                >
-                                    Văn Phòng Phẩm
-                                </li>
                             </ol>
                         </nav>
                     </div>
@@ -47,35 +41,17 @@ function ExploreProducts() {
                                 >
                                     <div className="accordion-body pt-2">
                                         <div className="vstack gap-2">
-                                            <a
+                                            {/* <a
                                                 href="#"
                                                 className="fw-medium link-dark text-decoration-none"
                                             >
                                                 Văn Phòng Phẩm
-                                            </a>
+                                            </a> */}
                                             <a
                                                 href="#"
                                                 className="fw-medium link-dark text-decoration-none"
                                             >
                                                 Sách
-                                            </a>
-                                            <a
-                                                href="#"
-                                                className="fw-medium link-dark text-decoration-none"
-                                            >
-                                                Đồ lưu niệm
-                                            </a>
-                                            <a
-                                                href="#"
-                                                className="fw-medium link-dark text-decoration-none"
-                                            >
-                                                Đồ dùng
-                                            </a>
-                                            <a
-                                                href="#"
-                                                className="fw-medium link-dark text-decoration-none"
-                                            >
-                                                Truyện
                                             </a>
                                         </div>
                                     </div>
@@ -188,7 +164,6 @@ function ExploreProducts() {
                                             <div className="col-12">
                                                 <button className="btn btn-primary w-100">
                                                     Chọn
-                                                    
                                                 </button>
                                             </div>
                                         </form>

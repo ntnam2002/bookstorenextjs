@@ -12,20 +12,20 @@ config.autoAddCss = false;
 library.add(fab, fas, far);
 
 if (typeof window !== "undefined") {
-  require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    require("bootstrap/dist/js/bootstrap.bundle.min.js");
 }
 
 function MyApp({ Component, pageProps }) {
-  const getLayout = Component.getLayout;
-  if (getLayout) {
-    return getLayout(<Component {...pageProps} />);
-  }
+    const getLayout = Component.getLayout;
+    if (getLayout) {
+        return getLayout(<Component {...pageProps} />);
+    }
 
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
+    return (
+        <Layout>
+            <Component {...pageProps} />
+        </Layout>
+    );
 }
 
 export default MyApp;

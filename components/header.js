@@ -89,33 +89,8 @@ function Header({ simple, hideAuth }) {
                                         Danh mục
                                     </Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link href="/explore" className="nav-link">
-                                        Sách
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link href="/explore" className="nav-link">
-                                        Văn phòng phẩm
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link href="/explore" className="nav-link">
-                                        Đồ chơi
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link href="/explore" className="nav-link">
-                                        Đồ dùng
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link href="/explore" className="nav-link">
-                                        Thiết bị
-                                    </Link>
-                                </li>
                             </ul>
-                            <ul className="ms-auto navbar-nav">
+                            {/* <ul className="ms-auto navbar-nav">
                                 <li className="nav-item dropdown">
                                     <a
                                         href="#"
@@ -149,7 +124,7 @@ function Header({ simple, hideAuth }) {
                                         </li>
                                     </ul>
                                 </li>
-                            </ul>
+                            </ul> */}
                         </div>
                     </div>
                 </nav>
