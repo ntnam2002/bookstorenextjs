@@ -1,7 +1,52 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProductGridCard from "../../components/product/product-grid-card";
-
+import FilterByPrice from "../filter/FilterByPrice";
+import BookApi from "../api/bookApi";
+import { useEffect, useState } from "react";
+import { Pagination } from "@nextui-org/react";
 function ExploreProducts() {
+    const initialFilter = {
+        _start: 0,
+        _length: 8,
+        _pageNumber: 1,
+    };
+    const [filter, setFilter] = useState(initialFilter);
+    const [product, setProduct] = useState([]);
+    const [pagination, setPagination] = useState(0);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const obj = BookApi;
+
+                const result = await obj.getAllBook(filter);
+
+                const listProduct = await obj.getListProductInPrice(filter);
+
+                setProduct(listProduct.data);
+                setPagination(result.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+        fetchData();
+    }, [filter]);
+    const handlePriceChange = ({ _minPrice, _maxPrice }) => {
+        const newFilter = {
+            maxPrice: _maxPrice,
+            minPrice: _minPrice,
+        };
+        setFilter(newFilter);
+    };
+    const handlePageChange = (e, page) => {
+        console.log("Current page:", page);
+        const newFilter = {
+            ...filter,
+            _pageNumber: page,
+        };
+        console.log(newFilter);
+        setFilter(newFilter);
+    };
+
     return (
         <div className="vstack">
             <div className="bg-secondary">
@@ -24,7 +69,7 @@ function ExploreProducts() {
                 <div className="row g-3">
                     <div className="col-lg-3">
                         <div className="accordion shadow-sm rounded">
-                            <div className="accordion-item border-bottom">
+                            {/* <div className="accordion-item border-bottom">
                                 <h2 className="accordion-header">
                                     <button
                                         className="accordion-button fw-bold"
@@ -46,7 +91,7 @@ function ExploreProducts() {
                                                 className="fw-medium link-dark text-decoration-none"
                                             >
                                                 Văn Phòng Phẩm
-                                            </a> */}
+                                            </a> 
                                             <a
                                                 href="#"
                                                 className="fw-medium link-dark text-decoration-none"
@@ -56,7 +101,7 @@ function ExploreProducts() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="accordion-item border-bottom">
                                 <h2 className="accordion-header">
                                     <button
@@ -65,7 +110,7 @@ function ExploreProducts() {
                                         data-bs-target="#collapseTwo"
                                         aria-expanded="true"
                                     >
-                                        Brands
+                                        Phân loại
                                     </button>
                                 </h2>
                                 <div
@@ -141,40 +186,16 @@ function ExploreProducts() {
                                     id="collapseThree"
                                     className="accordion-collapse collapse show"
                                 >
-                                    <div className="accordion-body pt-0">
-                                        <form className="row g-3">
-                                            <div className="col-6">
-                                                <label className="form-label">
-                                                    Thấp nhất
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                            <div className="col-6">
-                                                <label className="form-label">
-                                                    Lớn nhất
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                />
-                                            </div>
-                                            <div className="col-12">
-                                                <button className="btn btn-primary w-100">
-                                                    Chọn
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    <FilterByPrice
+                                        onChange={handlePriceChange}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-lg-9">
-                        <div className="hstack justify-content-between mb-3">
-                            <span className="text-dark">33 Items found</span>
+                        {/* <div className="hstack justify-content-between mb-3">
+                            <span className="text-dark"></span>
                             <div className="btn-group" role="group">
                                 <button className="btn btn-outline-dark">
                                     <FontAwesomeIcon
@@ -187,60 +208,27 @@ function ExploreProducts() {
                                     />
                                 </button>
                             </div>
-                        </div>
-                        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-                            <div className="col">
-                                <ProductGridCard />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard off={10} />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard off={25} />
-                            </div>
-                            <div className="col">
-                                <ProductGridCard />
-                            </div>
+                        </div> */}
+                        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-3 mb-5">
+                            {product &&
+                                product.map((singleProduct, index) => (
+                                    <ProductGridCard
+                                        key={index}
+                                        product={singleProduct}
+                                    />
+                                ))}
                         </div>
 
-                        <nav className="float-end mt-3">
-                            <ul className="pagination">
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        Trước
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        1
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        2
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        3
-                                    </a>
-                                </li>
-                                <li className="page-item">
-                                    <a className="page-link" href="#">
-                                        Sau
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        {/* <nav className="float-end mt-3">
+                            <Pagination
+                                total={Math.ceil(
+                                    pagination / initialFilter._length,
+                                )}
+                                onChange={handlePageChange}
+                                pageSize={initialFilter._length}
+                                current={filter._pageNumber}
+                            />
+                        </nav> */}
                     </div>
                 </div>
             </div>

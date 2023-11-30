@@ -89,6 +89,26 @@ function Header({ simple, hideAuth }) {
                                         Danh mục
                                     </Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link href="/explore" className="nav-link">
+                                        Sách Trinh Thám
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link href="/explore" className="nav-link">
+                                        Truyện Tranh
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link href="/explore" className="nav-link">
+                                        Sách giáo khoa
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link href="/explore" className="nav-link">
+                                        Tiểu thuyết
+                                    </Link>
+                                </li>
                             </ul>
                             {/* <ul className="ms-auto navbar-nav">
                                 <li className="nav-item dropdown">

@@ -1,70 +1,53 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import AddToCart1 from "./AddToCart1";
 
-function ProductGridCard({ id, title, off }) {
-    let price = 10000;
-    let percentOff;
-    let offPrice = `${price}Ks`;
+function ProductGridCard({ product }) {
+    const { masp, tensach, tacgia, image, mota, gia } = product;
+    const handleAddToCartSubmit = ({ quantity }) => {
+        const action = addToCart({
+            id: product.product.ID,
+            product,
+            quantity,
+        });
 
-    if (off && off > 0) {
-        percentOff = (
-            <div
-                className="badge bg-dark opacity-75 py-2 text-white position-absolute"
-                style={{ top: "0.5rem", right: "0.5rem" }}
-            >
-                {off}% OFF
-            </div>
-        );
+        console.log("action: ", action);
+        dispatch(action);
+    };
 
-        offPrice = (
-            <>
-                {price - (off * price) / 100}Ks&nbsp;
-                <del className="text-muted small fw-normal">{price}Ks</del>
-            </>
-        );
-    }
     return (
         <div className="card h-100 border-0 shadow-sm">
-            <Link href="/product/1">
-                <div className="ratio ratio-1x1">
-                    <img
-                        className="card-img-top "
-                        src={`https://source.unsplash.com/random/200x240?random=${Math.floor(
-                            Math.random() * 100,
-                        )}`}
-                        alt="Product image."
-                        style={{ objectFit: "cover" }}
-                    />
-                </div>
-                {percentOff}
-            </Link>
             <div className="card-body">
                 <div className="vstack gap-2">
+                    <div className="ratio ratio-1x1">
+                        <img
+                            className="card-img-top"
+                            src={image}
+                            alt=""
+                            style={{
+                                objectFit: "center",
+                                width: "100%",
+                                height: "100%",
+                            }}
+                        />
+                    </div>
                     <Link
-                        href="/product/1"
-                        className="text-dark text-decoration-none"
+                        href={`/product/${masp}`}
+                        className="text-dark text-decoration-none stretched-link"
+                        style={{
+                            display: "block",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                        }}
                     >
-                        Tên hàng
+                        {tensach}
                     </Link>
 
-                    <h6 className="fw-semibold">{offPrice}</h6>
+                    <h6 className="fw-semibold">{gia}</h6>
 
                     <div className="hstack gap-2">
-                        <button className="btn btn-secondary text-primary flex-grow-1 d-md-block d-lg-none">
-                            <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-                            &nbsp;Thêm vào giỏ hàng
-                        </button>
-                        <button className="btn btn-outline-secondary text-primary border d-md-block d-lg-none">
-                            <FontAwesomeIcon icon={["far", "heart"]} />
-                        </button>
-
-                        <button className="btn btn-sm btn-secondary text-primary flex-grow-1 d-none d-lg-block">
-                            <FontAwesomeIcon icon={["fas", "cart-plus"]} />
-                            &nbsp;Thêm vào giỏ hàng
-                        </button>
-                        <button className="btn btn-sm btn-outline-secondary text-primary border d-none d-lg-block">
-                            <FontAwesomeIcon icon={["far", "heart"]} />
-                        </button>
+                        <AddToCart1 onSubmit={handleAddToCartSubmit} />
                     </div>
                 </div>
             </div>

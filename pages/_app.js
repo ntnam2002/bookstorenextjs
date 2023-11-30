@@ -7,7 +7,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import Layout from "../components/layout";
-
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 config.autoAddCss = false;
 library.add(fab, fas, far);
 
@@ -22,9 +23,11 @@ function MyApp({ Component, pageProps }) {
     }
 
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <Provider store={store}>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </Provider>
     );
 }
 

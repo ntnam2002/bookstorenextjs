@@ -2,7 +2,6 @@ import Link from "next/link";
 import ProductRating from "../product-rating";
 
 function ProductSimpleCard({ product }) {
-    console.log("product", product);
     const { masp, tensach, tacgia, image, mota, gia } = product;
 
     return (
