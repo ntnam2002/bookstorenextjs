@@ -1,14 +1,13 @@
-import { Box, makeStyles, Typography } from '@material-ui/core';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { Controller } from 'react-hook-form';
-
+import { Box, makeStyles, Typography } from "@material-ui/core";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import FormControl from "@mui/material/FormControl";
+import FormHelperText from "@mui/material/FormHelperText";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import PropTypes from "prop-types";
+import React from "react";
+import { Controller } from "react-hook-form";
 
 QuantityField.propTypes = {
     form: PropTypes.object.isRequired,
@@ -20,11 +19,11 @@ const useStyle = makeStyles(() => ({
     root: {},
 
     box: {
-        display: 'flex',
-        flexflow: 'row nowrap',
-        maxWidth: '200px',
+        display: "flex",
+        flexflow: "row nowrap",
+        maxWidth: "200px",
     },
-}))
+}));
 function QuantityField(props) {
     const classes = useStyle();
     const { form, name, label } = props;
@@ -33,28 +32,41 @@ function QuantityField(props) {
     const hasError = errors[name];
     return (
         <div>
-            <FormControl variant="outlined" fullWidth margin='normal' size='small'>
+            <FormControl
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                size="small"
+            >
                 <Typography />
 
                 <Controller
                     control={form.control}
                     name={name}
+                    defaultValue={1} // Set the initial value here
                     render={({
-                        field: { onChange, onBlur, value, name, ref },
-                        fieldState: { invalid, isTouched, isDirty, error },
-                        formState,
+                        field: { onChange, value },
+                        fieldState: { invalid, error },
                     }) => (
                         <Box className={classes.box}>
-                            <IconButton onClick={() => setValue(name, Number.parseInt(value) - 1)}>
+                            <IconButton
+                                onClick={() =>
+                                    setValue(name, Number.parseInt(value) - 1)
+                                }
+                            >
                                 <RemoveCircleOutlineIcon />
                             </IconButton>
                             <OutlinedInput
                                 id={name}
-                                type='number'
+                                type="number"
                                 value={value}
                                 onChange={onChange}
                             />
-                            <IconButton onClick={() => setValue(name, Number.parseInt(value) + 1)}>
+                            <IconButton
+                                onClick={() =>
+                                    setValue(name, Number.parseInt(value) + 1)
+                                }
+                            >
                                 <AddCircleOutlineIcon />
                             </IconButton>
                         </Box>
@@ -64,7 +76,6 @@ function QuantityField(props) {
                     {errors[name]?.message}
                 </FormHelperText>
             </FormControl>
-
         </div>
     );
 }

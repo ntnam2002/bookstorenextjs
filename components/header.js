@@ -1,17 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
+import { useSelector } from "react-redux";
+import { cartItemCountSelector } from "./product/selectors";
+import { Badge, ShoppingCart, SmartButtonOutlined } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+import { store } from "../components/app/store";
+import Button from "@mui/material/Button";
 function Header({ simple, hideAuth }) {
     let title = process.env.APP_NAME;
+    const cartItemCount = useSelector(cartItemCountSelector);
+    console.log("sth", cartItemCount);
+    const router = useRouter();
+    const handleCartItem = (event) => {
+        event.preventDefault();
+        router.push("/shopping-cart");
+    };
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-                <div className="container">
-                    <Link href="/" className="navbar-brand">
-                        {/* <FontAwesomeIcon
-              icon={["fas", "shopping-basket"]}
-              className="d-inline-block"
-            /> */}
+                <div className="container" style={{ zIndex: 1000000 }}>
+                    <Link href="/" className="navbar-brand" passHref>
                         <span className="ms-2 mb-0 h4 text-primary fw-bold">
                             Nhà Sách Nguyễn Văn Cừ
                         </span>
@@ -52,16 +61,19 @@ function Header({ simple, hideAuth }) {
                                 </Link>
                             </>
                         )}
-                        <Link
-                            href="/shopping-cart"
-                            className="btn btn-light border position-relative ms-2 fw-normal"
-                        >
-                            <FontAwesomeIcon icon={["fas", "shopping-cart"]} />
-                            Giỏ hàng
-                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger my-auto">
-                                3
-                            </span>
-                        </Link>
+                        <Button onClick={handleCartItem}>
+                            <badge color="error" badgeContent={cartItemCount}>
+                                <ShoppingCart />
+                            </badge>
+                        </Button>
+                        {/* <Badge color="error">
+                            <ShoppingCart onClick={handleCartItem} />
+                            {cartItemCount !== null && (
+                                <span style={{ marginLeft: "4px" }}>
+                                    {cartItemCount}
+                                </span>
+                            )}
+                        </Badge> */}
                     </div>
                 </div>
             </nav>
@@ -110,41 +122,6 @@ function Header({ simple, hideAuth }) {
                                     </Link>
                                 </li>
                             </ul>
-                            {/* <ul className="ms-auto navbar-nav">
-                                <li className="nav-item dropdown">
-                                    <a
-                                        href="#"
-                                        className="nav-link dropdown-toggle"
-                                        role="button"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        id="languageMenuLink"
-                                    >
-                                        Việt
-                                    </a>
-                                    <ul
-                                        className="dropdown-menu dropdown-menu-macos dropdown-menu-end"
-                                        aria-labelledby="languageMenuLink"
-                                    >
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="dropdown-item"
-                                            >
-                                                English
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                className="dropdown-item mt-1"
-                                            >
-                                                Việt
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul> */}
                         </div>
                     </div>
                 </nav>

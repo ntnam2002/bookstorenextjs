@@ -1,12 +1,28 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import PricingCard from "../../components/shopping-cart/pricing-card";
-import { cartList, cartTotalSelector } from "./selectors";
+
 import { useSelector } from "react-redux";
+import {
+    cartList,
+    cartTotalSelector,
+} from "../../components/product/selectors";
 
 function ShoppingCart() {
+    console.log("vao r ne");
     const cartTotal = useSelector(cartTotalSelector);
     const cartitems = useSelector(cartList);
+    // const getRowId = (row) => row.id;
+    console.log(cartitems);
+    const rows = cartitems.map((item, index) => ({
+        masp: index,
+        image: item.image,
+        tensach: item.tensach,
+        soluong: item.quantity,
+        gia: item.gia,
+    }));
+    console.log("row", rows);
+
     return (
         <div className="container py-4">
             <div className="row g-3">
@@ -19,9 +35,12 @@ function ShoppingCart() {
                             <div className="table-responsive">
                                 <table className="table table-borderless align-middle mb-0">
                                     <tbody>
-                                        <CartItemRow />
-                                        <CartItemRow />
-                                        <CartItemRow />
+                                        {cartitems.map((item, index) => (
+                                            <CartItemRow
+                                                key={index}
+                                                data={item}
+                                            />
+                                        ))}
                                     </tbody>
                                 </table>
                             </div>
@@ -38,24 +57,7 @@ function ShoppingCart() {
                     </div>
                 </div>
                 <div className="col-lg-4">
-                    <div className="card mb-3 border-0 shadow-sm">
-                        <div className="card-body">
-                            <div className="input-group">
-                                <input
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Coupon code here"
-                                />
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                >
-                                    Chấp nhận
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <PricingCard />
+                    <PricingCard data={cartTotal} />
                 </div>
             </div>
             <br />

@@ -3,7 +3,6 @@ import ProductGridCard from "../../components/product/product-grid-card";
 import FilterByPrice from "../filter/FilterByPrice";
 import BookApi from "../api/bookApi";
 import { useEffect, useState } from "react";
-import { Pagination } from "@nextui-org/react";
 function ExploreProducts() {
     const initialFilter = {
         _start: 0,

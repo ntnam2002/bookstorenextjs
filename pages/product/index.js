@@ -38,9 +38,7 @@ function ProductDetail() {
                                     <div className="ratio ratio-1x1">
                                         <img
                                             className="rounded"
-                                            src={`https://source.unsplash.com/random/300x300?random=${Math.floor(
-                                                Math.random() * 50,
-                                            )}`}
+                                            src={``}
                                             width={300}
                                             height={300}
                                             alt="Product image."
@@ -59,9 +57,7 @@ function ProductDetail() {
                                             >
                                                 <img
                                                     className="rounded"
-                                                    src={`https://source.unsplash.com/random/80x80?random=${Math.floor(
-                                                        Math.random() * 50,
-                                                    )}`}
+                                                    src={``}
                                                     width={60}
                                                     height={60}
                                                     alt="Product image."

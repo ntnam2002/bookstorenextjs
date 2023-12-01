@@ -26,7 +26,6 @@ function AddToCart({ onSubmit = null }) {
     const form = useForm({
         defaultValue: {
             quantity: 1,
-            value: 1,
         },
         resolver: yupResolver(schema),
     });
@@ -38,7 +37,7 @@ function AddToCart({ onSubmit = null }) {
 
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-            {/* <QuantityField name="quantity" label="Số lượng" form={form} /> */}
+            <QuantityField name="quantity" label="Số lượng" form={form} />
             <Button type="submit" variant="contained" color="primary">
                 ADD TO CART
             </Button>

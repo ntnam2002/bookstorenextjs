@@ -1,53 +1,70 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import AddToCart1 from "./AddToCart1";
-
+import { addToCart } from "./cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 function ProductGridCard({ product }) {
     const { masp, tensach, tacgia, image, mota, gia } = product;
+    const dispatch = useDispatch();
     const handleAddToCartSubmit = ({ quantity }) => {
+        console.log("ntn ne");
+        event.preventDefault();
         const action = addToCart({
-            id: product.product.ID,
-            product,
+            masp,
+            image,
+            tensach,
             quantity,
+            gia,
         });
-
         console.log("action: ", action);
         dispatch(action);
     };
-
     return (
-        <div className="card h-100 border-0 shadow-sm">
-            <div className="card-body">
-                <div className="vstack gap-2">
-                    <div className="ratio ratio-1x1">
-                        <img
-                            className="card-img-top"
-                            src={image}
-                            alt=""
+        <div>
+            <div
+                // className="card-container"
+                style={{
+                    margin: "5px 5px 5px 5px",
+                    overflow: "hidden",
+                    border: "1px solid #e5e5e5",
+                    backgroundColor: "#fff",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                }}
+            >
+                <div className="card-body">
+                    <div className="vstack gap-2">
+                        <div className="ratio ratio-1x1">
+                            <img
+                                className="card-img-top"
+                                src={image}
+                                alt=""
+                                style={{
+                                    objectFit: "center",
+                                    width: "100%",
+                                    height: "100%",
+                                }}
+                            />
+                        </div>
+                        <a
+                            href={`/product`}
+                            className="text-dark text-decoration-none stretched-link"
                             style={{
-                                objectFit: "center",
-                                width: "100%",
-                                height: "100%",
+                                display: "block",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
                             }}
+                        >
+                            {tensach}
+                        </a>
+
+                        <h6 className="fw-semibold">{gia}</h6>
+
+                        <AddToCart1
+                            onSubmit={handleAddToCartSubmit}
+                            style={{ zIndex: 10 }}
                         />
-                    </div>
-                    <Link
-                        href={`/product/${masp}`}
-                        className="text-dark text-decoration-none stretched-link"
-                        style={{
-                            display: "block",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
-                        }}
-                    >
-                        {tensach}
-                    </Link>
-
-                    <h6 className="fw-semibold">{gia}</h6>
-
-                    <div className="hstack gap-2">
-                        <AddToCart1 onSubmit={handleAddToCartSubmit} />
                     </div>
                 </div>
             </div>

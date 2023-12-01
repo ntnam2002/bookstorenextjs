@@ -7,9 +7,7 @@ function ProductSimpleHorizontal({ id }) {
             <div className="flex-shink-0" style={{ height: 80 }}>
                 <img
                     className="rounded"
-                    src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
-                        Math.random() * 50,
-                    )}`}
+                    src={``}
                     width={80}
                     height={80}
                     alt="Product image."
@@ -17,10 +15,7 @@ function ProductSimpleHorizontal({ id }) {
                 />
             </div>
             <div className="d-flex flex-column flex-grow-1 ms-3">
-                <Link
-                    href="/product/1"
-                    className="text-dark text-decoration-none"
-                >
+                <Link href="" className="text-dark text-decoration-none">
                     Tên hàng
                 </Link>
                 <h6 className="mb-0 fw-semibold">10000Ks</h6>

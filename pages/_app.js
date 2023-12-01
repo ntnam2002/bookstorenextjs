@@ -8,7 +8,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import Layout from "../components/layout";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { store } from "../components/app/store";
 config.autoAddCss = false;
 library.add(fab, fas, far);
 

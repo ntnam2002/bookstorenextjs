@@ -28,9 +28,7 @@ function CartItem() {
             <div className="flex-shink-0">
                 <img
                     className="rounded"
-                    src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
-                        Math.random() * 10,
-                    )}`}
+                    src={``}
                     width={100}
                     height={100}
                     alt="Product image."

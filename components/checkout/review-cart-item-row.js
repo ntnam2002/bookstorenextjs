@@ -9,9 +9,7 @@ function ReviewCartItemRow() {
                 <div className="hstack">
                     <img
                         className="rounded"
-                        src={`https://source.unsplash.com/random/100x100?random=${Math.floor(
-                            Math.random() * 10,
-                        )}`}
+                        src={``}
                         width={80}
                         height={80}
                         alt="Product image."
