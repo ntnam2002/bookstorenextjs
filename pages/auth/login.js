@@ -4,11 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import Layout from "../../components/layout";
 import LoginApi from "../api/loginApi";
+import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess } from "./authActions";
 
 function Login() {
     const router = useRouter();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     const handleLogin = async () => {
         try {
@@ -17,6 +22,7 @@ function Login() {
 
         if (response.status) {
             // Đăng nhập thành công, chuyển hướng đến trang profile
+            dispatch(loginSuccess(username));
             router.push('/account/profile');
         } else {
             // Xử lý lỗi đăng nhập không thành công

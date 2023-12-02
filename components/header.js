@@ -23,17 +23,15 @@ function Header({ simple, hideAuth }) {
 
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    const handleLogin = () => {
-        // Thực hiện đăng nhập thành công
-        // Sau khi gọi API đăng nhập thành công
-        // Gọi dispatch(loginSuccess()) để cập nhật trạng thái đăng nhập
-        dispatch(loginSuccess());
-      };
+
+    const username = useSelector(state => state.auth.username);
+    console.log(username);
     
       const handleLogout = () => {
         // Thực hiện đăng xuất
         // Gọi dispatch(logout()) để cập nhật trạng thái đăng nhập
         dispatch(logout());
+        // router.push("/trangchu"); chuyển hướng về trang chủ nếu muốn
       };
     
 
@@ -69,15 +67,18 @@ function Header({ simple, hideAuth }) {
                     {!hideAuth && (
                         <>
                         {isLoggedIn ? (
-                            <Button onClick={handleLogout}>
-                            Đăng xuất
-                            </Button>
+                            <>
+                                <span className="me-2" style={{ marginTop: '5px' }}>Chào {username}</span>
+                                <Button onClick={handleLogout}>
+                                    Đăng xuất
+                                </Button>
+                            </>
                         ) : (
                             <>
                             <Link
                                 href="/auth/login"
                                 className="btn btn-outline-primary d-none d-md-block"
-                                onClick={handleLogin}
+                                // onClick={handleLogin}
                             >
                                 Login
                             </Link>
