@@ -26,6 +26,11 @@ function Header({ simple, hideAuth }) {
 
     const username = useSelector(state => state.auth.username);
     console.log(username);
+
+    const handleProfileClick = () => {
+        // Điều hướng đến trang profile khi tên người dùng được nhấp
+        router.push("/account/profile");
+    };
     
       const handleLogout = () => {
         // Thực hiện đăng xuất
@@ -68,7 +73,7 @@ function Header({ simple, hideAuth }) {
                         <>
                         {isLoggedIn ? (
                             <>
-                                <span className="me-2" style={{ marginTop: '5px' }}>Chào {username}</span>
+                                <Button className="me-2" style={{ marginTop: '3px' }} onClick={handleProfileClick}>Chào {username}</Button>
                                 <Button onClick={handleLogout}>
                                     Đăng xuất
                                 </Button>

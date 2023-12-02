@@ -2,12 +2,49 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountMenu from "../../components/account-menu";
 import AddressView from "../../components/account/address-view";
 import Layout from "../../components/layout";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useState, useEffect  } from "react";
 
 const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
 function Profile() {
+    const router = useRouter();
+
+    const makh = useSelector(state => state.auth.makh);
+
+    // Hàm xử lý sự kiện khi người dùng nhấp vào nút "Chỉnh sửa"
+    const handleEditProfile = async () => {
+        try {
+            // Gọi API để lấy thông tin khách hàng dựa trên makh
+            const response = await EditIFKhach({makh});
+
+            if (response.status) {
+                // Lấy thông tin khách hàng từ dữ liệu trả về
+                const khachHang = response.data;
+
+                // Chuyển hướng đến trang chỉnh sửa thông tin khách hàng và truyền dữ liệu của khách hàng
+                router.push({
+                    pathname: "/account/edit-profile",
+                    query: { makh: khachHang.makh, hoten: khachHang.hoten, /* thêm các trường dữ liệu khác nếu cần */ },
+                });
+            } else {
+                // Xử lý khi gặp lỗi khi gọi API
+                console.error("Lỗi khi gọi API EditIFKhach");
+            }
+        } catch (error) {
+            // Xử lý khi gặp lỗi khác
+            console.error("Đã xảy ra lỗi:", error);
+        }
+    };
+
+    // Gọi hàm xử lý sự kiện khi trang Profile được tải
+    useEffect(() => {
+        handleEditProfile();
+    }, []);
+    
     return (
         <div>
             <div className="bg-secondary">
