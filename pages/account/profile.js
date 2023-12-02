@@ -10,40 +10,10 @@ const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
+
 function Profile() {
-    const router = useRouter();
 
-    const makh = useSelector(state => state.auth.makh);
-
-    // Hàm xử lý sự kiện khi người dùng nhấp vào nút "Chỉnh sửa"
-    const handleEditProfile = async () => {
-        try {
-            // Gọi API để lấy thông tin khách hàng dựa trên makh
-            const response = await EditIFKhach({makh});
-
-            if (response.status) {
-                // Lấy thông tin khách hàng từ dữ liệu trả về
-                const khachHang = response.data;
-
-                // Chuyển hướng đến trang chỉnh sửa thông tin khách hàng và truyền dữ liệu của khách hàng
-                router.push({
-                    pathname: "/account/edit-profile",
-                    query: { makh: khachHang.makh, hoten: khachHang.hoten, /* thêm các trường dữ liệu khác nếu cần */ },
-                });
-            } else {
-                // Xử lý khi gặp lỗi khi gọi API
-                console.error("Lỗi khi gọi API EditIFKhach");
-            }
-        } catch (error) {
-            // Xử lý khi gặp lỗi khác
-            console.error("Đã xảy ra lỗi:", error);
-        }
-    };
-
-    // Gọi hàm xử lý sự kiện khi trang Profile được tải
-    useEffect(() => {
-        handleEditProfile();
-    }, []);
+    const { hoten, username, password, sdt,email, diachi } = useSelector(state => state.auth);
     
     return (
         <div>
@@ -82,11 +52,22 @@ function Profile() {
                                         <form className="row g-3">
                                             <div className="col-md-6">
                                                 <label className="form-label">
-                                                    Tên
+                                                    Họ Tên
                                                 </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
+                                                    value={hoten}
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label className="form-label">
+                                                    Username
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={username}
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -97,6 +78,7 @@ function Profile() {
                                                     type="password"
                                                     className="form-control bg-light"
                                                     disabled
+                                                    value={password}
                                                 />
                                                 <button
                                                     type="button"
@@ -110,14 +92,15 @@ function Profile() {
                                                     Điện thoại
                                                 </label>
                                                 <div className="input-group">
-                                                    <div>
+                                                    {/* <div>
                                                         <select className="form-select rounded-0 rounded-start bg-light">
                                                             <option>+84</option>
                                                         </select>
-                                                    </div>
+                                                    </div> */}
                                                     <input
                                                         type="tel"
                                                         className="form-control"
+                                                        value={sdt}
                                                     />
                                                 </div>
                                             </div>
@@ -128,9 +111,20 @@ function Profile() {
                                                 <input
                                                     type="email"
                                                     className="form-control"
+                                                    value={email}
                                                 />
                                             </div>
                                             <div className="col-md-12">
+                                                <label className="form-label">
+                                                    Địa chỉ
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={diachi}
+                                                />
+                                            </div>
+                                            {/* <div className="col-md-12">
                                                 <div className="form-check form-check-inline">
                                                     <input
                                                         className="form-check-input"
@@ -149,8 +143,8 @@ function Profile() {
                                                         Nữ
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div className="col-md-6">
+                                            </div> */}
+                                            {/* <div className="col-md-6">
                                                 <label className="form-label">
                                                     Thành Phố
                                                 </label>
@@ -163,7 +157,7 @@ function Profile() {
                                                         );
                                                     })}
                                                 </select>
-                                            </div>
+                                            </div> */}
 
                                             <div className="col-md-12 mt-4">
                                                 <button className="btn btn-primary float-end">
