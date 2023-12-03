@@ -3,32 +3,45 @@ import ProductGridCard from "../../components/product/product-grid-card";
 import FilterByPrice from "../filter/FilterByPrice";
 import BookApi from "../api/bookApi";
 import { useEffect, useState } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import Checkbox from "@mui/material/Checkbox";
+
 function ExploreProducts() {
     const initialFilter = {
         _start: 0,
         _length: 8,
         _pageNumber: 1,
+        _theloai: [],
     };
+    const label = { inputProps: { "aria-label": "Checkbox demo" } };
     const [filter, setFilter] = useState(initialFilter);
     const [product, setProduct] = useState([]);
     const [pagination, setPagination] = useState(0);
+    const [bookType, setBookType] = useState([]);
+    const [selectedTypes, setSelectedTypes] = useState([]);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const obj = BookApi;
-
                 const result = await obj.getAllBook(filter);
+                console.log("getAllBook result:", result.data);
 
                 const listProduct = await obj.getListProductInPrice(filter);
+                console.log("getListProductInPrice result:", listProduct);
 
+                const bookType = await obj.getBooktype();
                 setProduct(listProduct.data);
-                setPagination(result.data);
+                setPagination(result.data.length);
+                setBookType(bookType.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
+
         fetchData();
     }, [filter]);
+
     const handlePriceChange = ({ _minPrice, _maxPrice }) => {
         const newFilter = {
             maxPrice: _maxPrice,
@@ -45,9 +58,27 @@ function ExploreProducts() {
         console.log(newFilter);
         setFilter(newFilter);
     };
+    const handleTypeChange = (selectedType) => {
+        console.log("Selected type:", selectedType);
+        const newFilter = {
+            theloai: selectedType.map((type) => type.theloai),
+        };
+
+        setFilter(newFilter);
+    };
+    const handleFilterByPriceSubmit = (priceFilter, selectedTypes) => {
+        // Kết hợp cả hai bộ lọc (theo giá và phân loại)
+        console.log("ntn", selectedTypes);
+        const combinedFilter = {
+            ...filter,
+            ...priceFilter,
+            theloai: selectedTypes.map((type) => type.theloai),
+        };
+        setFilter(combinedFilter);
+    };
 
     return (
-        <div className="vstack">
+        <div>
             <div className="bg-secondary">
                 <div className="container">
                     <div className="row py-4 px-2">
@@ -68,39 +99,6 @@ function ExploreProducts() {
                 <div className="row g-3">
                     <div className="col-lg-3">
                         <div className="accordion shadow-sm rounded">
-                            {/* <div className="accordion-item border-bottom">
-                                <h2 className="accordion-header">
-                                    <button
-                                        className="accordion-button fw-bold"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#collapseOne"
-                                        aria-expanded="true"
-                                    >
-                                        Danh Mục
-                                    </button>
-                                </h2>
-                                <div
-                                    id="collapseOne"
-                                    className="accordion-collapse collapse show"
-                                >
-                                    <div className="accordion-body pt-2">
-                                        <div className="vstack gap-2">
-                                            {/* <a
-                                                href="#"
-                                                className="fw-medium link-dark text-decoration-none"
-                                            >
-                                                Văn Phòng Phẩm
-                                            </a> 
-                                            <a
-                                                href="#"
-                                                className="fw-medium link-dark text-decoration-none"
-                                            >
-                                                Sách
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="accordion-item border-bottom">
                                 <h2 className="accordion-header">
                                     <button
@@ -118,53 +116,61 @@ function ExploreProducts() {
                                 >
                                     <div className="accordion-body pt-2">
                                         <div className="vstack gap-2">
-                                            <div className="d-flex gap-2">
-                                                <input
-                                                    type="checkbox"
-                                                    className="form-check-input"
-                                                />
-                                                <label className="fw-medium flex-grow-1">
-                                                    Văn Cao
-                                                </label>
-                                                <span className="badge bg-default rounded-pill my-auto mb-0 text-dark">
-                                                    50
-                                                </span>
-                                            </div>
-                                            <div className="d-flex gap-2">
-                                                <input
-                                                    type="checkbox"
-                                                    className="form-check-input"
-                                                />
-                                                <label className="fw-medium flex-grow-1">
-                                                    Nguyễn Nhật Ánh
-                                                </label>
-                                                <span className="badge bg-default rounded-pill my-auto mb-0 text-dark">
-                                                    100
-                                                </span>
-                                            </div>
-                                            <div className="d-flex gap-2">
-                                                <input
-                                                    type="checkbox"
-                                                    className="form-check-input"
-                                                />
-                                                <label className="fw-medium flex-grow-1">
-                                                    Chế Lan Viên
-                                                </label>
-                                                <span className="badge bg-default rounded-pill my-auto mb-0 text-dark">
-                                                    30
-                                                </span>
-                                            </div>
-                                            <div className="d-flex gap-2">
-                                                <input
-                                                    type="checkbox"
-                                                    className="form-check-input"
-                                                />
-                                                <label className="fw-medium flex-grow-1">
-                                                    Tô Hoài
-                                                </label>
-                                                <span className="badge bg-default rounded-pill my-auto mb-0 text-dark">
-                                                    60
-                                                </span>
+                                            <div className="vstack gap-2">
+                                                {bookType.map((type) => (
+                                                    <div
+                                                        key={type.theloai}
+                                                        className="d-flex gap-2"
+                                                    >
+                                                        <Checkbox
+                                                            {...label}
+                                                            onChange={() => {
+                                                                const priceFilter =
+                                                                    {};
+                                                                const isSelected =
+                                                                    selectedTypes.some(
+                                                                        (
+                                                                            selected,
+                                                                        ) =>
+                                                                            selected.theloai ===
+                                                                            type.theloai,
+                                                                    );
+
+                                                                let updatedSelectedTypes;
+
+                                                                if (
+                                                                    isSelected
+                                                                ) {
+                                                                    updatedSelectedTypes =
+                                                                        selectedTypes.filter(
+                                                                            (
+                                                                                selected,
+                                                                            ) =>
+                                                                                selected.theloai !==
+                                                                                type.theloai,
+                                                                        );
+                                                                } else {
+                                                                    updatedSelectedTypes =
+                                                                        [
+                                                                            ...selectedTypes,
+                                                                            type,
+                                                                        ];
+                                                                }
+
+                                                                setSelectedTypes(
+                                                                    updatedSelectedTypes,
+                                                                );
+                                                                handleFilterByPriceSubmit(
+                                                                    priceFilter,
+                                                                    updatedSelectedTypes,
+                                                                );
+                                                            }}
+                                                        />
+                                                        <label className="fw-medium flex-grow-1">
+                                                            {type.theloai}
+                                                        </label>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
@@ -187,6 +193,12 @@ function ExploreProducts() {
                                 >
                                     <FilterByPrice
                                         onChange={handlePriceChange}
+                                        onSubmit={(priceFilter) =>
+                                            handleFilterByPriceSubmit(
+                                                priceFilter,
+                                                selectedTypes,
+                                            )
+                                        }
                                     />
                                 </div>
                             </div>
@@ -218,16 +230,14 @@ function ExploreProducts() {
                                 ))}
                         </div>
 
-                        {/* <nav className="float-end mt-3">
+                        <Stack spacing={2}>
                             <Pagination
-                                total={Math.ceil(
+                                count={Math.ceil(
                                     pagination / initialFilter._length,
                                 )}
                                 onChange={handlePageChange}
-                                pageSize={initialFilter._length}
-                                current={filter._pageNumber}
                             />
-                        </nav> */}
+                        </Stack>
                     </div>
                 </div>
             </div>

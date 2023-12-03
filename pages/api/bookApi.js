@@ -15,6 +15,31 @@ const BookApi = {
         const url = `/sach/Search`;
         return axiosClient.get(url);
     },
+    getBooktype() {
+        const url = `/sach/theloai`;
+        return axiosClient.get(url);
+    },
+    getBookByTypeAndPrice(params) {
+        const min = parseInt(params.minPrice) || 0;
+        const max = parseInt(params.maxPrice) || 5000000;
+        const theloai = params.theloai || [];
+        const url = "/sach/Search";
+
+        return axiosClient.post(
+            url,
+            {
+                minPrice: min,
+                maxPrice: max,
+                theloai: theloai,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        );
+    },
+
     getListProductInPrice(params) {
         const min = parseInt(params.minPrice) || 0;
         const max = parseInt(params.maxPrice) || 5000000;

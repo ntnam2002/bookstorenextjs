@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { cartItemCountSelector } from "./product/selectors";
-import { Badge, ShoppingCart, SmartButtonOutlined } from "@mui/icons-material";
+import { ShoppingCart, SmartButtonOutlined } from "@mui/icons-material";
+import Badge from "@mui/material/Badge";
 import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/router";
 import { store } from "../components/app/store";
@@ -62,9 +63,9 @@ function Header({ simple, hideAuth }) {
                             </>
                         )}
                         <Button onClick={handleCartItem}>
-                            <badge color="error" badgeContent={cartItemCount}>
+                            <Badge color="error" badgeContent={cartItemCount}>
                                 <ShoppingCart />
-                            </badge>
+                            </Badge>
                         </Button>
                         {/* <Badge color="error">
                             <ShoppingCart onClick={handleCartItem} />
@@ -80,7 +81,7 @@ function Header({ simple, hideAuth }) {
             {!simple && (
                 <nav className="navbar navbar-expand-lg navbar-light bg-white border-bottom">
                     <div className="container">
-                        <button
+                        {/* <button
                             className="navbar-toggler ms-auto"
                             type="button"
                             data-bs-toggle="collapse"
@@ -90,7 +91,7 @@ function Header({ simple, hideAuth }) {
                             aria-label="Toggle navigation"
                         >
                             <span className="navbar-toggler-icon"></span>
-                        </button>
+                        </button> */}
                         <div
                             className="collapse navbar-collapse"
                             id="navbarNavDropdown"

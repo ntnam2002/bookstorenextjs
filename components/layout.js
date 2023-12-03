@@ -18,7 +18,7 @@ function Layout({ simpleHeader, hideAuth, children }) {
                     <link rel="icon" href="/favicon.ico" />
                     <title>Nhà sách Nguyễn Văn Cừ</title>
                 </Head>
-                <div className="d-flex flex-column h-100">
+                <div className="d-flex flex-column">
                     <Header simple={simpleHeader} hideAuth={hideAuth} />
                     <main className="flex-shrink-0">{children}</main>
                     <Footer />
