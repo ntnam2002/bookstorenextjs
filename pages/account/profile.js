@@ -2,12 +2,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccountMenu from "../../components/account-menu";
 import AddressView from "../../components/account/address-view";
 import Layout from "../../components/layout";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useState, useEffect  } from "react";
 
 const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
+
 function Profile() {
+
+    const { hoten, username, password, sdt,email, diachi } = useSelector(state => state.auth);
+    
     return (
         <div>
             <div className="bg-secondary">
@@ -45,11 +52,22 @@ function Profile() {
                                         <form className="row g-3">
                                             <div className="col-md-6">
                                                 <label className="form-label">
-                                                    Tên
+                                                    Họ Tên
                                                 </label>
                                                 <input
                                                     type="text"
                                                     className="form-control"
+                                                    value={hoten}
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label className="form-label">
+                                                    Username
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={username}
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -60,6 +78,7 @@ function Profile() {
                                                     type="password"
                                                     className="form-control bg-light"
                                                     disabled
+                                                    value={password}
                                                 />
                                                 <button
                                                     type="button"
@@ -73,14 +92,15 @@ function Profile() {
                                                     Điện thoại
                                                 </label>
                                                 <div className="input-group">
-                                                    <div>
+                                                    {/* <div>
                                                         <select className="form-select rounded-0 rounded-start bg-light">
                                                             <option>+84</option>
                                                         </select>
-                                                    </div>
+                                                    </div> */}
                                                     <input
                                                         type="tel"
                                                         className="form-control"
+                                                        value={sdt}
                                                     />
                                                 </div>
                                             </div>
@@ -91,9 +111,20 @@ function Profile() {
                                                 <input
                                                     type="email"
                                                     className="form-control"
+                                                    value={email}
                                                 />
                                             </div>
                                             <div className="col-md-12">
+                                                <label className="form-label">
+                                                    Địa chỉ
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    value={diachi}
+                                                />
+                                            </div>
+                                            {/* <div className="col-md-12">
                                                 <div className="form-check form-check-inline">
                                                     <input
                                                         className="form-check-input"
@@ -112,8 +143,8 @@ function Profile() {
                                                         Nữ
                                                     </label>
                                                 </div>
-                                            </div>
-                                            <div className="col-md-6">
+                                            </div> */}
+                                            {/* <div className="col-md-6">
                                                 <label className="form-label">
                                                     Thành Phố
                                                 </label>
@@ -126,7 +157,7 @@ function Profile() {
                                                         );
                                                     })}
                                                 </select>
-                                            </div>
+                                            </div> */}
 
                                             <div className="col-md-12 mt-4">
                                                 <button className="btn btn-primary float-end">

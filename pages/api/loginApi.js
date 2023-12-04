@@ -1,17 +1,10 @@
 import { axiosClient } from "./axiosApi";
 
 const LoginApi = {
-    Login() {
-        const url = `/s`;
-        return axiosClient.get(url);
+    login: (username, password) => {
+      const url = `/khachhang/LoginKH`;
+      // Gọi API login với method POST và truyền dữ liệu username và password
+      return axiosClient.post(url, { username, password });
     },
-    getListPrice(params) {
-        const minPrice = params._minPrice || 0;
-        const maxPrice = params._maxPrice || 0;
-        const url = "/sach/Search";
-        return axiosClient.get(url, {
-            data: { minPrice, maxPrice },
-        });
-    },
-};
+  };
 export default LoginApi;

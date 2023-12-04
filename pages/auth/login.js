@@ -1,10 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Link from "next/link";
 import Layout from "../../components/layout";
+import LoginApi from "../api/loginApi";
+import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess } from "./authActions";
+
 
 function Login() {
     const router = useRouter();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+
+    const handleLogin = async () => {
+        try {
+        // Gọi API đăng nhập với dữ liệu từ state
+        const response = await LoginApi.login(username, password);
+
+        if (response.status) {
+            // Đăng nhập thành công, chuyển hướng đến trang profile
+            dispatch(loginSuccess(username));
+            router.push('/account/profile');
+        } else {
+            // Xử lý lỗi đăng nhập không thành công
+            const data = await response.json();
+            console.error('Đăng nhập không thành công:', data.message);
+        }
+        } catch (error) {
+        console.error('Đã xảy ra lỗi khi gọi API đăng nhập:', error);
+        }
+    };
     return (
         <div className="container py-3">
             <div className="row my-4">
@@ -16,11 +45,13 @@ function Login() {
                             </h4>
                             <form className="row g-2">
                                 <div className="col-md-12">
-                                    <label className="form-label">Email</label>
+                                    <label className="form-label">Username</label>
                                     <input
-                                        type="email"
+                                        type="text"
                                         className="form-control"
-                                        placeholder="name@domain.com"
+                                        placeholder="tên đăng nhập"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-12">
@@ -30,6 +61,8 @@ function Login() {
                                     <input
                                         type="password"
                                         className="form-control"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </div>
                                 <div className="col-md-12">
@@ -44,11 +77,12 @@ function Login() {
                                     <button
                                         type="button"
                                         className="btn btn-primary w-100"
-                                        onClick={() => {
-                                            router.push({
-                                                pathname: "/account/profile",
-                                            });
-                                        }}
+                                        // onClick={() => {
+                                        //     router.push({
+                                        //         pathname: "/account/profile",
+                                        //     });
+                                        // }}
+                                        onClick={handleLogin}
                                     >
                                         Đăng nhập
                                     </button>
