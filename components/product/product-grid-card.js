@@ -7,7 +7,6 @@ function ProductGridCard({ product }) {
     const { masp, tensach, tacgia, image, mota, gia } = product;
     const dispatch = useDispatch();
     const handleAddToCartSubmit = ({ quantity }) => {
-        console.log("ntn ne");
         event.preventDefault();
         const action = addToCart({
             masp,
@@ -16,7 +15,7 @@ function ProductGridCard({ product }) {
             quantity,
             gia,
         });
-        console.log("action: ", action);
+
         dispatch(action);
     };
     return (
@@ -47,7 +46,7 @@ function ProductGridCard({ product }) {
                             />
                         </div>
                         <a
-                            href={`/product`}
+                            href={`/product/${masp}`}
                             className="text-dark text-decoration-none stretched-link"
                             style={{
                                 display: "block",

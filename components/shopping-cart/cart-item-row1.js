@@ -5,7 +5,7 @@ import { removeFromCart, setQuantity } from "../product/cartSlice";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 
-function CartItemRow({ data }) {
+function CartItemRow1({ data }) {
     const { masp, tensach, quantity, gia, image } = data;
     const [editedQuantity, setEditedQuantity] = useState(quantity);
     const [totalPrice, setTotalPrice] = useState(
@@ -43,7 +43,7 @@ function CartItemRow({ data }) {
                 <div className="ms-3">
                     <span className="h5">
                         <Link
-                            href="/product/1"
+                            href={`/product/${masp}`}
                             className="link-dark text-decoration-none"
                         >
                             {tensach}
@@ -74,20 +74,20 @@ function CartItemRow({ data }) {
                     />
                 </div>
             </td>
-            <td>
+            {/* <td>
                 <h6 className="mb-0">{gia}n/đ</h6>
-            </td>
+            </td> */}
             <td>
                 <h6 className="mb-0">{totalPrice}n/đ</h6>
             </td>
-            <td>
+            {/* <td>
                 <button
                     className="btn btn-sm btn-danger"
                     onClick={handleDeleteItem}
                 >
                     <FontAwesomeIcon icon={["fas", "trash-alt"]} />
                 </button>
-            </td>
+            </td> */}
         </tr>
     );
 }
@@ -96,4 +96,4 @@ function calculateTotalPrice(unitPrice, quantity) {
     return unitPrice * quantity;
 }
 
-export default CartItemRow;
+export default CartItemRow1;

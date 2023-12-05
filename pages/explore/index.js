@@ -25,10 +25,8 @@ function ExploreProducts() {
             try {
                 const obj = BookApi;
                 const result = await obj.getAllBook(filter);
-                console.log("getAllBook result:", result.data);
 
                 const listProduct = await obj.getListProductInPrice(filter);
-                console.log("getListProductInPrice result:", listProduct);
 
                 const bookType = await obj.getBooktype();
                 setProduct(listProduct.data);
@@ -50,16 +48,16 @@ function ExploreProducts() {
         setFilter(newFilter);
     };
     const handlePageChange = (e, page) => {
-        console.log("Current page:", page);
+       
         const newFilter = {
             ...filter,
             _pageNumber: page,
         };
-        console.log(newFilter);
+  
         setFilter(newFilter);
     };
     const handleTypeChange = (selectedType) => {
-        console.log("Selected type:", selectedType);
+
         const newFilter = {
             theloai: selectedType.map((type) => type.theloai),
         };
@@ -68,7 +66,6 @@ function ExploreProducts() {
     };
     const handleFilterByPriceSubmit = (priceFilter, selectedTypes) => {
         // Kết hợp cả hai bộ lọc (theo giá và phân loại)
-        console.log("ntn", selectedTypes);
         const combinedFilter = {
             ...filter,
             ...priceFilter,

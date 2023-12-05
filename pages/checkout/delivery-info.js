@@ -2,8 +2,13 @@ import Link from "next/link";
 import CheckoutStepper from "../../components/checkout/checkout-stepper";
 import PricingCard from "../../components/shopping-cart/pricing-card";
 import Layout from "../../components/layout";
+import { useSelector } from "react-redux";
+import { cartTotalSelector } from "../../components/product/selectors";
+import PricingCard1 from "../../components/shopping-cart/pricing-card-for-final";
 
 function DeliveryInfo() {
+    const cartTotal = useSelector(cartTotalSelector);
+
     return (
         <div className="container py-4">
             <div className="row">
@@ -78,19 +83,12 @@ function DeliveryInfo() {
                                     <label className="form-label">
                                         Thành phố
                                     </label>
-                                    <select className="form-select">
-                                        <option>HN</option>
-                                    </select>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                    />
                                 </div>
-                                <div className="col-md-4">
-                                    <label className="form-label">
-                                        Khu vực
-                                    </label>
-                                    <select className="form-select">
-                                        <option>VN</option>
-                                    </select>
-                                </div>
-                                <div className="col-md-12">
+                                {/* <div className="col-md-12">
                                     <div className="form-check">
                                         <input
                                             className="form-check-input"
@@ -100,7 +98,7 @@ function DeliveryInfo() {
                                             Lưu địa chỉ
                                         </label>
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div className="col-md-12 mt-4">
                                     <div className="d-grid gap-2 d-flex justify-content-end">
@@ -123,7 +121,7 @@ function DeliveryInfo() {
                     </div>
                 </div>
                 <div className="col-lg-4">
-                    <PricingCard pricingOnly />
+                    <PricingCard1 data={cartTotal} />
                 </div>
             </div>
             <br />

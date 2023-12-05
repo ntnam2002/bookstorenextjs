@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-function PricingCard({ data, children }) {
+function PricingCard1({ data, children }) {
     return (
         <div className="card border-0 shadow-sm">
             <div className="card-body">
@@ -21,20 +21,17 @@ function PricingCard({ data, children }) {
                         <span className="h5">Tổng:</span>
                         <span className="fw-bold h5 mb-0">{data}</span>
                     </div>
-                    <div className="d-grid gap-2 mt-2">
-                        <Link
-                            href="/checkout/delivery-info"
-                            className="btn btn-primary"
-                        >
-                            Thanh toán
-                        </Link>
-                        <Link
-                            href="/explore"
-                            className="btn btn-outline-primary"
-                        >
-                            Tiếp tục mua sắm
-                        </Link>
-                    </div>
+                    {/* <div className="d-grid gap-2 mt-2">
+                            <Link
+                                href="/checkout/delivery-info"
+                                className="btn btn-primary"
+                            >
+                                Thanh toán
+                            </Link>
+                            <Link href="/" className="btn btn-outline-primary">
+                                Tiếp tục mua sắm
+                            </Link>
+                        </div> */}
                     {children}
                 </div>
             </div>
@@ -42,4 +39,4 @@ function PricingCard({ data, children }) {
     );
 }
 
-export default PricingCard;
+export default PricingCard1;

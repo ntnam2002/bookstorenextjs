@@ -15,6 +15,12 @@ const BookApi = {
         const url = `/sach/Search`;
         return axiosClient.get(url);
     },
+    getbookDetails(params) {
+        const url = `/sach/Search`;
+        return axiosClient.post(url, {
+            masp: params.masp,
+        });
+    },
     getBooktype() {
         const url = `/sach/theloai`;
         return axiosClient.get(url);

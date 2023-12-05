@@ -7,13 +7,12 @@ import {
     cartList,
     cartTotalSelector,
 } from "../../components/product/selectors";
+import CartTableHeader from "../../components/CartTableHeader";
 
 function ShoppingCart() {
-    console.log("vao r ne");
     const cartTotal = useSelector(cartTotalSelector);
     const cartitems = useSelector(cartList);
     // const getRowId = (row) => row.id;
-    console.log(cartitems);
     const rows = cartitems.map((item, index) => ({
         masp: index,
         image: item.image,
@@ -21,7 +20,6 @@ function ShoppingCart() {
         soluong: item.quantity,
         gia: item.gia,
     }));
-    console.log("row", rows);
 
     return (
         <div className="container py-4">
@@ -34,6 +32,9 @@ function ShoppingCart() {
                         <div className="card-body p-2">
                             <div className="table-responsive">
                                 <table className="table table-borderless align-middle mb-0">
+                                    <thead>
+                                        <CartTableHeader />
+                                    </thead>
                                     <tbody>
                                         {cartitems.map((item, index) => (
                                             <CartItemRow

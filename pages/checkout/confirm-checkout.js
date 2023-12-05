@@ -5,10 +5,19 @@ import ReviewCartItem from "../../components/checkout/review-cart-item";
 import Layout from "../../components/layout";
 import PricingCard from "../../components/shopping-cart/pricing-card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PricingCard1 from "../../components/shopping-cart/pricing-card-for-final";
+import { useSelector } from "react-redux";
+import {
+    cartList,
+    cartTotalSelector,
+} from "../../components/product/selectors";
+import CartItemRow from "../../components/shopping-cart/cart-item-row";
+import CartItemRow1 from "../../components/shopping-cart/cart-item-row1";
 
 function ConfirmCheckout() {
     const router = useRouter();
-
+    const cartTotal = useSelector(cartTotalSelector);
+    const cartitems = useSelector(cartList);
     return (
         <div className="container py-4">
             <div className="row">
@@ -23,17 +32,23 @@ function ConfirmCheckout() {
                             <h4 className="fw-semibold mb-3">
                                 Vật phẩm trong giỏ
                             </h4>
-                            <div className="row row-cols-1 row-cols-md-2 g-3">
-                                <div className="col">
-                                    <ReviewCartItem />
-                                </div>
-                                <div className="col">
-                                    <ReviewCartItem />
-                                </div>
-                                <div className="col">
-                                    <ReviewCartItem />
-                                </div>
+
+                            <div className="table-responsive">
+                                <table
+                                    className="table table-borderless align-middle mb-0"
+                                    style={{ width: "200px" }}
+                                >
+                                    <tbody>
+                                        {cartitems.map((item, index) => (
+                                            <CartItemRow1
+                                                key={index}
+                                                data={item}
+                                            />
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
+
                             <hr className="text-muted" />
                             <div className="row g-3">
                                 <div className="col-md-6">
@@ -70,7 +85,7 @@ function ConfirmCheckout() {
                     </div>
                 </div>
                 <div className="col-lg-4">
-                    <PricingCard pricingOnly>
+                    <PricingCard1 data={cartTotal} pricingOnly>
                         <div className="mt-3 d-grid gap-2">
                             <button
                                 className="btn btn-primary"
@@ -89,7 +104,7 @@ function ConfirmCheckout() {
                                 Trở lại
                             </Link>
                         </div>
-                    </PricingCard>
+                    </PricingCard1>
                 </div>
             </div>
             <br />

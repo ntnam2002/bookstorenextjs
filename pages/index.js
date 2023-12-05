@@ -11,7 +11,7 @@ export default function Home() {
             try {
                 const bookApi = BookApi;
                 const result = await bookApi.getAll();
-                console.log("Danh sách sản phẩm:", result);
+
                 setBook(result.data);
             } catch (error) {
                 console.error("Lỗi khi lấy dữ liệu:", error);

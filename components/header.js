@@ -15,7 +15,6 @@ function Header({ simple, hideAuth }) {
     
     let title = process.env.APP_NAME;
     const cartItemCount = useSelector(cartItemCountSelector);
-    console.log("sth", cartItemCount);
     const router = useRouter();
     const handleCartItem = (event) => {
         event.preventDefault();
@@ -26,7 +25,6 @@ function Header({ simple, hideAuth }) {
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
     const username = useSelector(state => state.auth.username);
-    console.log(username);
 
     const handleProfileClick = () => {
         // Điều hướng đến trang profile khi tên người dùng được nhấp

@@ -4,14 +4,25 @@ import CheckoutStepper from "../../components/checkout/checkout-stepper";
 import PaymentOptionCheck from "../../components/checkout/payment-option-check";
 import Layout from "../../components/layout";
 import PricingCard from "../../components/shopping-cart/pricing-card";
-
+import PricingCard1 from "../../components/shopping-cart/pricing-card-for-final";
+import { useSelector } from "react-redux";
+import { cartTotalSelector } from "../../components/product/selectors";
 function PaymentInfo() {
     const [option, setOption] = useState("visa");
-
+    const [paymentImage, setPaymentImage] = useState("/images/ck.jpg");
+    console.log(paymentImage);
     function handlePaymentOptionChange(name) {
         setOption(name);
-    }
 
+        // Update payment image based on the selected payment option
+        if (name === "ck") {
+            setPaymentImage("/images/ck.jpg");
+        } else {
+            // Set default image for other payment options
+            setPaymentImage("/images/default.jpg");
+        }
+    }
+    const cartTotal = useSelector(cartTotalSelector);
     return (
         <div className="container py-4">
             <div className="row">
@@ -31,75 +42,36 @@ function PaymentInfo() {
                                     <div className="d-flex flex-wrap gap-2">
                                         <PaymentOptionCheck
                                             name="cod"
-                                            title="Cash on delivery"
-                                            checked={option == "cod"}
-                                            onCheckedChanged={setOption}
+                                            title="Trả tiền khi nhận hàng"
+                                            checked={option === "cod"}
+                                            onCheckedChanged={
+                                                handlePaymentOptionChange
+                                            }
                                         />
+                                        <div></div>
                                         <PaymentOptionCheck
-                                            name="mpu"
-                                            title="MPU"
-                                            checked={option == "mpu"}
-                                            onCheckedChanged={setOption}
-                                        />
-                                        <PaymentOptionCheck
-                                            name="visa"
-                                            title="VISA"
-                                            checked={option == "visa"}
-                                            onCheckedChanged={setOption}
+                                            name="ck"
+                                            title="Chuyển khoản"
+                                            checked={option === "ck"}
+                                            onCheckedChanged={
+                                                handlePaymentOptionChange
+                                            }
                                         />
                                     </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <label className="form-label">
-                                        Tên trên thẻ
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                    />
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="hstack gap-2">
-                                        <div className="flex-grow-1">
-                                            <label className="form-label">
-                                                Số thẻ
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="xxxx-xxxx-xxxx-xxxx"
-                                            />
-                                        </div>
-                                        <div className="flex-shrink-0">
-                                            <label className="form-label">
-                                                CVV
-                                            </label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="123"
-                                                size={5}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-12">
-                                    <div className="row g-2">
-                                        <div className="col">
-                                            <label className="form-label">
-                                                Hét Hạn
-                                            </label>
-                                            <select className="form-select">
-                                                <option>Tháng</option>
-                                            </select>
-                                        </div>
-                                        <div className="col mt-auto">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Year"
-                                            />
-                                        </div>
+                                    <div>
+                                        {option === "ck" && (
+                                            <div>
+                                                <img
+                                                    src={paymentImage}
+                                                    alt="Chuyển khoản"
+                                                    style={{
+                                                        width: "500px",
+                                                        marginLeft: "130px",
+                                                        marginTop: "30px",
+                                                    }}
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
@@ -124,7 +96,7 @@ function PaymentInfo() {
                     </div>
                 </div>
                 <div className="col-lg-4">
-                    <PricingCard pricingOnly />
+                    <PricingCard1 data={cartTotal} />
                 </div>
             </div>
             <br />

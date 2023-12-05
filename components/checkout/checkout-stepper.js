@@ -59,7 +59,10 @@ function CheckoutStepper({ step = 1 }) {
                 <span className="position-absolute top-50 start-50 translate-middle">
                     Thanh toán
                 </span>
-                <span className="position-absolute top-50 start-100 translate-middle">
+                <span
+                    className="position-absolute top-50 start-100 translate-middle"
+                    style={{ width: "100px", marginLeft: "10px" }}
+                >
                     Xác nhận
                 </span>
             </div>
