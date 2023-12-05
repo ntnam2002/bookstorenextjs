@@ -5,10 +5,28 @@ import Layout from "../../components/layout";
 import { useSelector } from "react-redux";
 import { cartTotalSelector } from "../../components/product/selectors";
 import PricingCard1 from "../../components/shopping-cart/pricing-card-for-final";
+import KhachApi from "../api/KhachApi";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function DeliveryInfo() {
-    const cartTotal = useSelector(cartTotalSelector);
+    const cartTotal = useSelector((state) => state.cart.total);
+    const username = useSelector((state) => state.auth.username);
+    const [info, setInfo] = useState(null);
+    const fetchData = async () => {
+        const obj = KhachApi;
+        const data = await obj.getKHinfo(username);
+        console.log(data.data);
+        setInfo(data.data[0]);
+    };
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+    const hoten = info ? info.hoten : "";
+    const sdt = info ? info.sdt : "";
+    const email = info ? info.email : "";
+    const diachi = info ? info.diachi : "";
     return (
         <div className="container py-4">
             <div className="row">
@@ -25,19 +43,14 @@ function DeliveryInfo() {
                                     Thông tin liên hệ
                                 </h4>
                                 <div className="col-md-6">
-                                    <label className="form-label">Họ</label>
+                                    <label className="form-label">Họ Tên</label>
                                     <input
                                         type="text"
                                         className="form-control"
+                                        defaultValue={hoten}
                                     />
                                 </div>
-                                <div className="col-md-6">
-                                    <label className="form-label">Tên</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                    />
-                                </div>
+
                                 <div className="col-md-6">
                                     <label className="form-label">
                                         Điện thoại
@@ -51,6 +64,7 @@ function DeliveryInfo() {
                                         <input
                                             type="tel"
                                             className="form-control"
+                                            defaultValue={sdt}
                                         />
                                     </div>
                                 </div>
@@ -60,6 +74,7 @@ function DeliveryInfo() {
                                         type="email"
                                         className="form-control"
                                         placeholder="name@domain.com"
+                                        defaultValue={email}
                                     />
                                 </div>
 
@@ -77,9 +92,10 @@ function DeliveryInfo() {
                                     <input
                                         type="text"
                                         className="form-control"
+                                        defaultValue={diachi}
                                     />
                                 </div>
-                                <div className="col-md-4">
+                                {/* <div className="col-md-4">
                                     <label className="form-label">
                                         Thành phố
                                     </label>
@@ -87,7 +103,7 @@ function DeliveryInfo() {
                                         type="text"
                                         className="form-control"
                                     />
-                                </div>
+                                </div> */}
                                 {/* <div className="col-md-12">
                                     <div className="form-check">
                                         <input
@@ -109,7 +125,7 @@ function DeliveryInfo() {
                                             Hủy
                                         </Link>
                                         <Link
-                                            href="/checkout/payment-info"
+                                            href={`/checkout/payment-info?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}`}
                                             className="btn btn-primary"
                                         >
                                             Tiếp tục

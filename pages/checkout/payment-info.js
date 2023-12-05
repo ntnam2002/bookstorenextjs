@@ -7,18 +7,18 @@ import PricingCard from "../../components/shopping-cart/pricing-card";
 import PricingCard1 from "../../components/shopping-cart/pricing-card-for-final";
 import { useSelector } from "react-redux";
 import { cartTotalSelector } from "../../components/product/selectors";
+import { useRouter } from "next/router";
 function PaymentInfo() {
-    const [option, setOption] = useState("visa");
+    const router = useRouter();
+    const { hoten, sdt, email, diachi } = router.query;
+    const [option, setOption] = useState("COD");
     const [paymentImage, setPaymentImage] = useState("/images/ck.jpg");
-    console.log(paymentImage);
     function handlePaymentOptionChange(name) {
-        setOption(name);
-
-        // Update payment image based on the selected payment option
-        if (name === "ck") {
+        if (name === "Chuyển khoản") {
+            setOption(name);
             setPaymentImage("/images/ck.jpg");
         } else {
-            // Set default image for other payment options
+            setOption(name);
             setPaymentImage("/images/default.jpg");
         }
     }
@@ -41,25 +41,25 @@ function PaymentInfo() {
                                 <div className="col-md-12">
                                     <div className="d-flex flex-wrap gap-2">
                                         <PaymentOptionCheck
-                                            name="cod"
+                                            name="COD"
                                             title="Trả tiền khi nhận hàng"
-                                            checked={option === "cod"}
+                                            checked={option === "COD"}
                                             onCheckedChanged={
                                                 handlePaymentOptionChange
                                             }
                                         />
                                         <div></div>
                                         <PaymentOptionCheck
-                                            name="ck"
+                                            name="Chuyển khoản"
                                             title="Chuyển khoản"
-                                            checked={option === "ck"}
+                                            checked={option === "Chuyển khoản"}
                                             onCheckedChanged={
                                                 handlePaymentOptionChange
                                             }
                                         />
                                     </div>
                                     <div>
-                                        {option === "ck" && (
+                                        {option === "Chuyển khoản" && (
                                             <div>
                                                 <img
                                                     src={paymentImage}
@@ -84,7 +84,7 @@ function PaymentInfo() {
                                             Trở lại
                                         </Link>
                                         <Link
-                                            href="/checkout/confirm-checkout"
+                                            href={`/checkout/confirm-checkout?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}&option=${option}`}
                                             className="btn btn-primary"
                                         >
                                             Tiếp tục

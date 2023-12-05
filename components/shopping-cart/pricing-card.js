@@ -1,7 +1,24 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useRouter } from "next/router";
 function PricingCard({ data, children }) {
+    console.log("hahahah");
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    console.log(isLoggedIn);
+    const router = useRouter();
+    const handleCheckout = () => {
+        if (isLoggedIn) {
+            console.log("Đã đăng nhaapj");
+        } else {
+            alert("Bạn cần đăng nhập để thanh toán");
+            router.push({
+                pathname: "/auth/login",
+            });
+        }
+    };
+    console.log("hahahah");
     return (
         <div className="card border-0 shadow-sm">
             <div className="card-body">
@@ -25,6 +42,7 @@ function PricingCard({ data, children }) {
                         <Link
                             href="/checkout/delivery-info"
                             className="btn btn-primary"
+                            onClick={handleCheckout}
                         >
                             Thanh toán
                         </Link>

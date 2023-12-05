@@ -16,8 +16,12 @@ import CartItemRow1 from "../../components/shopping-cart/cart-item-row1";
 
 function ConfirmCheckout() {
     const router = useRouter();
+    const { hoten, sdt, email, diachi, option } = router.query;
     const cartTotal = useSelector(cartTotalSelector);
     const cartitems = useSelector(cartList);
+    const handleRequest = () => { 
+        
+    }
     return (
         <div className="container py-4">
             <div className="row">
@@ -56,11 +60,10 @@ function ConfirmCheckout() {
                                         Địa chỉ vận chuyển
                                     </h4>
                                     <div className="vstack text-dark small">
-                                        <span>NTN</span>
-                                        <span>Tô hiệu,Hà NỘi</span>
-                                        <span>HN</span>
-                                        <span>SĐT: 09899999999</span>
-                                        <span>Email: ntn2002@gmail.com</span>
+                                        <span>Họ Tên: {hoten}</span>
+                                        <span>Địa Chỉ: {diachi}</span>
+                                        <span>SĐT: {sdt}</span>
+                                        <span>Email: {email}</span>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
@@ -70,13 +73,12 @@ function ConfirmCheckout() {
                                     <div className="d-flex gap-3 text-success">
                                         <span className="fw-bold">
                                             <FontAwesomeIcon
-                                                icon={["fab", "cc-visa"]}
+                                                icon={["fa-solid", " fa-moped"]}
                                                 size="lg"
                                             />
                                         </span>
                                         <div className="vstack small text-muted">
-                                            <span>XXXX-XXXX-XXXX-2345</span>
-                                            <span>Exp: 03/25</span>
+                                            <span>{option}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -93,6 +95,7 @@ function ConfirmCheckout() {
                                     router.push({
                                         pathname: "/checkout/checkout-success",
                                     });
+                                    handleRequest;
                                 }}
                             >
                                 Xác Nhận

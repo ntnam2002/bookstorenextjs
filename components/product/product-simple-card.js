@@ -15,12 +15,10 @@ function ProductSimpleCard({ product }) {
                         className="card-img-top"
                         src={image}
                         alt=""
-                        
                         style={{
                             objectFit: "center",
                             width: "100%",
                             height: "100%",
-                            
                         }}
                     />
                 </div>

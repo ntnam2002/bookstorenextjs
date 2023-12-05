@@ -12,15 +12,6 @@ import CartTableHeader from "../../components/CartTableHeader";
 function ShoppingCart() {
     const cartTotal = useSelector(cartTotalSelector);
     const cartitems = useSelector(cartList);
-    // const getRowId = (row) => row.id;
-    const rows = cartitems.map((item, index) => ({
-        masp: index,
-        image: item.image,
-        tensach: item.tensach,
-        soluong: item.quantity,
-        gia: item.gia,
-    }));
-
     return (
         <div className="container py-4">
             <div className="row g-3">

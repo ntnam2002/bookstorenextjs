@@ -5,6 +5,20 @@ const BookApi = {
         const url = `/sach?start=0&length=8`;
         return axiosClient.get(url);
     },
+    get5BookSameType(theloai) {
+        const url = `/sach/Search?start=0&length=3`;
+        return axiosClient.post(
+            url,
+            {
+                theloai: [theloai],
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        );
+    },
     getAllBook(filter) {
         const start = filter._start || 0;
         const length = filter._length || 10;
@@ -15,11 +29,19 @@ const BookApi = {
         const url = `/sach/Search`;
         return axiosClient.get(url);
     },
-    getbookDetails(params) {
+    getbookDetails(masp) {
         const url = `/sach/Search`;
-        return axiosClient.post(url, {
-            masp: params.masp,
-        });
+        return axiosClient.post(
+            url,
+            {
+                masp: masp,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        );
     },
     getBooktype() {
         const url = `/sach/theloai`;

@@ -4,7 +4,7 @@ import AddToCart1 from "./AddToCart1";
 import { addToCart } from "./cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 function ProductGridCard({ product }) {
-    const { masp, tensach, tacgia, image, mota, gia } = product;
+    const { masp, tensach, tacgia, theloai, image, mota, gia } = product;
     const dispatch = useDispatch();
     const handleAddToCartSubmit = ({ quantity }) => {
         event.preventDefault();
@@ -45,8 +45,8 @@ function ProductGridCard({ product }) {
                                 }}
                             />
                         </div>
-                        <a
-                            href={`/product/${masp}`}
+                        <Link
+                            href={`/product/${masp}?masp=${masp}&theloai=${theloai}`}
                             className="text-dark text-decoration-none stretched-link"
                             style={{
                                 display: "block",
@@ -56,7 +56,7 @@ function ProductGridCard({ product }) {
                             }}
                         >
                             {tensach}
-                        </a>
+                        </Link>
 
                         <h6 className="fw-semibold">{gia}</h6>
 
