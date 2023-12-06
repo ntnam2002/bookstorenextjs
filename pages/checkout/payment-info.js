@@ -10,7 +10,8 @@ import { cartTotalSelector } from "../../components/product/selectors";
 import { useRouter } from "next/router";
 function PaymentInfo() {
     const router = useRouter();
-    const { hoten, sdt, email, diachi } = router.query;
+    const { username, hoten, sdt, email, diachi } = router.query;
+    console.log(username);
     const [option, setOption] = useState("COD");
     const [paymentImage, setPaymentImage] = useState("/images/ck.jpg");
     function handlePaymentOptionChange(name) {
@@ -84,7 +85,7 @@ function PaymentInfo() {
                                             Trở lại
                                         </Link>
                                         <Link
-                                            href={`/checkout/confirm-checkout?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}&option=${option}`}
+                                            href={`/checkout/confirm-checkout?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}&option=${option}&username=${username}`}
                                             className="btn btn-primary"
                                         >
                                             Tiếp tục

@@ -13,15 +13,57 @@ import {
 } from "../../components/product/selectors";
 import CartItemRow from "../../components/shopping-cart/cart-item-row";
 import CartItemRow1 from "../../components/shopping-cart/cart-item-row1";
+import { ConstructionOutlined } from "@mui/icons-material";
+import KhachApi from "../api/KhachApi";
+import { useEffect, useState } from "react";
+import orderApi from "../api/donhangApi";
+import { useDispatch } from "react-redux";
+import { resetCartState } from "../../components/product/cartSlice";
 
 function ConfirmCheckout() {
     const router = useRouter();
-    const { hoten, sdt, email, diachi, option } = router.query;
+    const { name, hoten, sdt, email, diachi, option, username } = router.query;
+    const dispatch = useDispatch();
     const cartTotal = useSelector(cartTotalSelector);
     const cartitems = useSelector(cartList);
-    const handleRequest = () => { 
-        
+    console.log(cartitems);
+    const [order, setOrder] = useState([]);
+    const [makh, setMakh] = useState(null);
+    const fetchData = async () => {
+        const kh = await KhachApi.getKHinfo(username);
+        const makhValue = kh.data[0].makh;
+        setMakh(makhValue);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    function generateOrderID() {
+        // Generate a random four-digit number
+        const randomNumber = Math.floor(Math.random() * 9000) + 1000;
+
+        return randomNumber.toString(); // Convert to string if needed
     }
+
+    // Example usage
+    const randomOrderID = generateOrderID();
+    const handleRequest = () => {
+        console.log("hello dmm");
+        const maspArrayValue = cartitems.map((item) => ({
+            masp: item.masp,
+            quantity: item.quantity, // Assuming you have quantity in your cart item
+            tongtien: item.gia * item.quantity, // Assuming you have price (gia) in your cart item
+        }));
+        const newOrder = {
+            madh: randomOrderID,
+            makh,
+            maspArrayValue,
+            option,
+            trangthai: "Đang Xử Lý",
+        };
+        const send = orderApi.sendOrder(newOrder);
+        dispatch(resetCartState());
+    };
     return (
         <div className="container py-4">
             <div className="row">
@@ -72,10 +114,7 @@ function ConfirmCheckout() {
                                     </h4>
                                     <div className="d-flex gap-3 text-success">
                                         <span className="fw-bold">
-                                            <FontAwesomeIcon
-                                                icon={["fa-solid", " fa-moped"]}
-                                                size="lg"
-                                            />
+                                            <FontAwesomeIcon icon="fa-solid fa-truck" />
                                         </span>
                                         <div className="vstack small text-muted">
                                             <span>{option}</span>
@@ -95,7 +134,7 @@ function ConfirmCheckout() {
                                     router.push({
                                         pathname: "/checkout/checkout-success",
                                     });
-                                    handleRequest;
+                                    handleRequest();
                                 }}
                             >
                                 Xác Nhận

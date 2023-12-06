@@ -13,6 +13,7 @@ function PricingCard({ data, children }) {
             console.log("Đã đăng nhaapj");
         } else {
             alert("Bạn cần đăng nhập để thanh toán");
+            event.preventDefault();
             router.push({
                 pathname: "/auth/login",
             });
