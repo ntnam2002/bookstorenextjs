@@ -3,25 +3,14 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import KhachApi from "./KhachApi";
+import DeliveryInfo from "../checkout/delivery-info";
 
-// const username = useSelector((state) => state.auth.username);
-//     const [info, setInfo] = useState(null);
-//     const fetchData = async () => {
-//         const obj = KhachApi;
-//         const data = await obj.getKHinfo(username);
-//         console.log(data.data);
-//         setInfo(data.data[0]);
-//     };
-
-//     useEffect(() => {
-//         fetchData();
-//     }, []);
-//     const makh = info ? info.makh : "";
 
 const orderApi = {
-    getAllddh() {
-        const url = `/dondathangWithkhachhang?makh=2`;
-        // const url = `/dondathangWithkhachhang?makh=${makh}`;
+    getAllddh(makh) {
+        
+        // const url = `/dondathangWithkhachhang?makh=2`;
+        const url = `/dondathangWithkhachhang?makh=${makh}`;
         return axiosClient.get(url);
     },
     sendOrder(orders) {

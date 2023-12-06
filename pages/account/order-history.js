@@ -1,17 +1,24 @@
+import { useSelector } from "react-redux";
 import AccountMenu from "../../components/account-menu";
 import OrderHistoryItem from "../../components/account/order-history-item";
 import Layout from "../../components/layout";
 import orderApi from "../api/donhangApi"; 
 import React, { useState, useEffect } from "react";
+import KhachApi from "../api/KhachApi";
 
 function OrderHistory() {
     const [orderHistory, setOrderHistory] = useState([]);
-
+    const username = useSelector((state) => state.auth.username);
+    
     useEffect(() => {
         const fetchOrderHistory = async () => {
             try {
+             const data = await KhachApi.getKHinfo(username)
+             const makh = data.data[0].makh;
+             
                 // Gọi API để lấy danh sách đơn đặt hàng
-                const response = await orderApi.getAllddh();
+                const response = await orderApi.getAllddh(makh);
+
                 // Cập nhật state với dữ liệu từ API
                 setOrderHistory(response.data);
             } catch (error) {
