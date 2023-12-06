@@ -25,7 +25,7 @@ function AccountMenu({ current }) {
                         Thông tin của tôi
                     </Link>
 
-                    <Link
+                    {/* <Link
                         href="/account/current-orders"
                         className={
                             itemCss +
@@ -38,7 +38,7 @@ function AccountMenu({ current }) {
                             fixedWidth
                         />
                         Đơn hàng hiện tại
-                    </Link>
+                    </Link> */}
 
                     <Link
                         href="/account/order-history"
@@ -55,7 +55,7 @@ function AccountMenu({ current }) {
                         Lịch sử đơn hàng
                     </Link>
 
-                    <Link
+                    {/* <Link
                         href="/account/favorite-list"
                         className={
                             itemCss +
@@ -68,7 +68,7 @@ function AccountMenu({ current }) {
                             fixedWidth
                         />
                         Danh sách yêu thích
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ function Login() {
         if (response.status) {
             // Đăng nhập thành công, chuyển hướng đến trang profile
             dispatch(loginSuccess(username));
-            router.push('/account/profile');
+            router.push('/');
         } else {
             // Xử lý lỗi đăng nhập không thành công
             const data = await response.json();

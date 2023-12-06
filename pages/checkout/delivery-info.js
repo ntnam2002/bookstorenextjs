@@ -125,7 +125,7 @@ function DeliveryInfo() {
                                             Hủy
                                         </Link>
                                         <Link
-                                            href={`/checkout/payment-info?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}`}
+                                            href={`/checkout/payment-info?hoten=${hoten}&sdt=${sdt}&email=${email}&diachi=${diachi}&username=${username}`}
                                             className="btn btn-primary"
                                         >
                                             Tiếp tục

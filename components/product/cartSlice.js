@@ -39,6 +39,11 @@ const cartSlice = createSlice({
                 );
             }
         },
+        resetCartState(state) {
+            // Reset cart state to initial state
+            state.showMiniCart = false;
+            state.cartItems = [];
+        },
         setQuantity(state, action) {
             const { masp, quantity } = action.payload;
             // Check if product is avaiable in cart
@@ -68,5 +73,6 @@ export const {
     setQuantity,
     removeFromCart,
     updateQuantityAndPrice,
+    resetCartState,
 } = actions;
 export default reducer;
