@@ -22,6 +22,15 @@ function SignUp() {
     const handleSignUp = async () => {
         try {
             // Gọi API đăng ký với dữ liệu từ state
+<<<<<<< HEAD
+            const response = await KhachApi.InsertKhach(hoten, username, password, sdt, email, diachi);
+    
+            if (response.status) {
+                // Đăng ký thành công, có thể chuyển hướng hoặc thông báo cho người dùng
+                console.log('Đăng ký thành công');
+                window.location.href = '/'
+                // router.push('/account/profile');
+=======
             const response = await KhachApi.InsertKhach(
                 hoten,
                 username,
@@ -35,6 +44,7 @@ function SignUp() {
                 // Đăng ký thành công, có thể chuyển hướng hoặc thông báo cho người dùng
                 console.log("Đăng ký thành công");
                 window.location.href = "/";
+>>>>>>> 1e8b725a41d5e68d6bdff03bff8737a058cfbce6
             } else {
                 // Xử lý lỗi đăng ký không thành công
                 const data = await response.json();

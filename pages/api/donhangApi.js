@@ -1,6 +1,18 @@
 import { axiosClient } from "./axiosApi";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+import KhachApi from "./KhachApi";
+import DeliveryInfo from "../checkout/delivery-info";
+
 
 const orderApi = {
+    getAllddh(makh) {
+        
+        // const url = `/dondathangWithkhachhang?makh=2`;
+        const url = `/dondathangWithkhachhang?makh=${makh}`;
+        return axiosClient.get(url);
+    },
     sendOrder(orders) {
         console.log(orders);
         const url = `/dondathang/Insert`;

@@ -23,6 +23,7 @@ function DeliveryInfo() {
     useEffect(() => {
         fetchData();
     }, []);
+    const makh = info ? info.makh : "";
     const hoten = info ? info.hoten : "";
     const sdt = info ? info.sdt : "";
     const email = info ? info.email : "";
