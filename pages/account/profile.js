@@ -4,17 +4,57 @@ import AddressView from "../../components/account/address-view";
 import Layout from "../../components/layout";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import { useState, useEffect  } from "react";
-
+import { useState, useEffect } from "react";
+import KhachApi from "../api/KhachApi";
 const cities = ["Yangon", "Mandalay", "Kalaw"];
 
 const states = ["Thar Kay Ta", "Daw Pon", "San Chaung"];
 
-
 function Profile() {
+    const { username } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const [profile, setProfile] = useState([]);
+    const [newHoten, setNewHoten] = useState("");
+    const [newSdt, setNewSdt] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [newDiachi, setNewDiachi] = useState("");
+    const [newUser, setNewUser] = useState(username);
+    const fetchData = async () => {
+        const getdata = await KhachApi.getKHinfo(username);
+        console.log(getdata.data[0]);
+        setProfile(getdata.data[0]);
+        setNewUser(getdata.data[0].username);
+        setNewHoten(getdata.data[0].hoten || "");
+        setNewSdt(getdata.data[0].sdt || "");
+        setNewEmail(getdata.data[0].email || "");
+        setNewDiachi(getdata.data[0].diachi || "");
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+    const password = profile ? profile.password : "";
+    const makh = profile ? profile.makh : "";
+    const handleUpdate = async () => {
+        // Use values from local state
+        const obj = {
+            hoten: newHoten,
+            sdt: newSdt,
+            email: newEmail,
+            diachi: newDiachi,
+            makh: makh,
+        };
 
-    const { hoten, username, password, sdt,email, diachi } = useSelector(state => state.auth);
-    
+        await KhachApi.updateKH(obj);
+        await fetchData();
+        dispatch({
+            type: "LOGIN_SUCCESS",
+            payload: {
+                username: newUser, // Assuming you have a newUsername state
+            },
+        });
+        window.location.href = "/";
+    };
+    console.log(username);
     return (
         <div>
             <div className="bg-secondary">
@@ -57,7 +97,12 @@ function Profile() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    value={hoten}
+                                                    defaultValue={newHoten}
+                                                    onChange={(e) =>
+                                                        setNewHoten(
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -67,7 +112,8 @@ function Profile() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    value={username}
+                                                    defaultValue={newUser}
+                                                    disabled
                                                 />
                                             </div>
                                             <div className="col-md-6">
@@ -78,14 +124,8 @@ function Profile() {
                                                     type="password"
                                                     className="form-control bg-light"
                                                     disabled
-                                                    value={password}
+                                                    defaultValue={password}
                                                 />
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-sm btn-link float-end p-0 text-decoration-none"
-                                                >
-                                                    Đổi mật khẩu
-                                                </button>
                                             </div>
                                             <div className="col-md-12 mt-0">
                                                 <label className="form-label">
@@ -100,7 +140,12 @@ function Profile() {
                                                     <input
                                                         type="tel"
                                                         className="form-control"
-                                                        value={sdt}
+                                                        defaultValue={newSdt}
+                                                        onChange={(e) =>
+                                                            setNewSdt(
+                                                                e.target.value,
+                                                            )
+                                                        }
                                                     />
                                                 </div>
                                             </div>
@@ -111,7 +156,12 @@ function Profile() {
                                                 <input
                                                     type="email"
                                                     className="form-control"
-                                                    value={email}
+                                                    defaultValue={newEmail}
+                                                    onChange={(e) =>
+                                                        setNewEmail(
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 />
                                             </div>
                                             <div className="col-md-12">
@@ -121,7 +171,12 @@ function Profile() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    value={diachi}
+                                                    defaultValue={newDiachi}
+                                                    onChange={(e) =>
+                                                        setNewDiachi(
+                                                            e.target.value,
+                                                        )
+                                                    }
                                                 />
                                             </div>
                                             {/* <div className="col-md-12">
@@ -160,7 +215,10 @@ function Profile() {
                                             </div> */}
 
                                             <div className="col-md-12 mt-4">
-                                                <button className="btn btn-primary float-end">
+                                                <button
+                                                    className="btn btn-primary float-end"
+                                                    onClick={handleUpdate}
+                                                >
                                                     Cập nhật
                                                 </button>
                                             </div>
@@ -168,7 +226,7 @@ function Profile() {
                                     </div>
                                 </div>
 
-                                <div className="card border-0 shadow-sm">
+                                {/* <div className="card border-0 shadow-sm">
                                     <div className="p-3 d-flex border-bottom">
                                         <h5 className="my-auto fw-semibold">
                                             Địa chỉ
@@ -190,7 +248,7 @@ function Profile() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="col-lg-3"></div>
                         </div>

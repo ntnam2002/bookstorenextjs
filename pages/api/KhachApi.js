@@ -30,5 +30,25 @@ const KhachApi = {
             },
         );
     },
+    updateKH(obj) {
+        const makh = obj.makh;
+        console.log(makh, obj);
+        const url = `/khachhang/Edit/${makh}`;
+        return axiosClient.put(
+            url,
+            {
+                hoten: obj.hoten,
+                sdt: obj.sdt,
+                email: obj.email,
+                diachi: obj.diachi,
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            },
+        );
+    },
 };
+
 export default KhachApi;

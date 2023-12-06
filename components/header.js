@@ -12,7 +12,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess, logout } from "../pages/auth/authActions.js";
 
 function Header({ simple, hideAuth }) {
-    
     let title = process.env.APP_NAME;
     const cartItemCount = useSelector(cartItemCountSelector);
     const router = useRouter();
@@ -22,22 +21,21 @@ function Header({ simple, hideAuth }) {
     };
 
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-    const username = useSelector(state => state.auth.username);
+    const username = useSelector((state) => state.auth.username);
 
     const handleProfileClick = () => {
         // Điều hướng đến trang profile khi tên người dùng được nhấp
         router.push("/account/profile");
     };
-    
-      const handleLogout = () => {
+
+    const handleLogout = () => {
         // Thực hiện đăng xuất
         // Gọi dispatch(logout()) để cập nhật trạng thái đăng nhập
         dispatch(logout());
-        // router.push("/trangchu"); chuyển hướng về trang chủ nếu muốn
-      };
-    
+        router.push("/auth/login"); //chuyển hướng về trang chủ nếu muốn
+    };
 
     return (
         <header>
@@ -68,34 +66,40 @@ function Header({ simple, hideAuth }) {
                         </form>
                     </div>
                     <div className="d-flex">
-                    {!hideAuth && (
-                        <>
-                        {isLoggedIn ? (
+                        {!hideAuth && (
                             <>
-                                <Button className="me-2" style={{ marginTop: '3px' }} onClick={handleProfileClick}>Chào {username}</Button>
-                                <Button onClick={handleLogout}>
-                                    Đăng xuất
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                            <Link
-                                href="/auth/login"
-                                className="btn btn-outline-primary d-none d-md-block"
-                                // onClick={handleLogin}
-                            >
-                                Login
-                            </Link>
-                            <Link
-                                href="/auth/sign-up"
-                                className="btn btn-primary d-none d-md-block ms-2"
-                            >
-                                Đăng ký
-                            </Link>
+                                {isLoggedIn ? (
+                                    <>
+                                        <Button
+                                            className="me-2"
+                                            style={{ marginTop: "3px" }}
+                                            onClick={handleProfileClick}
+                                        >
+                                            Chào {username}
+                                        </Button>
+                                        <Button onClick={handleLogout}>
+                                            Đăng xuất
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Link
+                                            href="/auth/login"
+                                            className="btn btn-outline-primary d-none d-md-block"
+                                            // onClick={handleLogin}
+                                        >
+                                            Login
+                                        </Link>
+                                        <Link
+                                            href="/auth/sign-up"
+                                            className="btn btn-primary d-none d-md-block ms-2"
+                                        >
+                                            Đăng ký
+                                        </Link>
+                                    </>
+                                )}
                             </>
                         )}
-                        </>
-                    )}
                         <Button onClick={handleCartItem}>
                             <Badge color="error" badgeContent={cartItemCount}>
                                 <ShoppingCart />
