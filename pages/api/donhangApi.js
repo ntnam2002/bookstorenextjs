@@ -1,16 +1,10 @@
 import { axiosClient } from "./axiosApi";
 
 const orderApi = {
-<<<<<<< HEAD
-    // sendOrder(order) {
-    //     const url = `/donhang/Insert`;
-    //     return axiosClient.post(url, order);
-    // },
     getAllddh() {
         const url = `/dondathangWithkhachhang?makh=2`;
         return axiosClient.get(url);
-    }
-=======
+    },
     sendOrder(orders) {
         console.log(orders);
         const url = `/dondathang/Insert`;
@@ -45,6 +39,5 @@ const orderApi = {
 
         return Promise.all(orderPromises);
     },
->>>>>>> 1e8b725a41d5e68d6bdff03bff8737a058cfbce6
 };
 export default orderApi;
