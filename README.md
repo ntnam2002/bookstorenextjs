@@ -1,5 +1,5 @@
 # E-commerce Template
-E-commerce consumer front-end template. [Live Preview](https://mocha-mart.web.app)
+E-commerce consumer front-end template.
 
 - NextJS
 - Bootstrap 5
